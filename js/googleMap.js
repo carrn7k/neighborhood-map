@@ -2,6 +2,7 @@
 
 var placeCoords = [],
 	markers = [];
+	infoWindows = [];
 	currentInfoWindow = null
 
 function initMap() {
@@ -26,14 +27,28 @@ function initMap() {
           content: place[2]
         });
 
-		marker.addListener('click', function() {		
+		marker.addListener('click', function() {
+			// close all other info windows 
+			closeAllWindows();
 			infowindow.open(map, marker);
 		});
 
+		infoWindows.push(infowindow);
 		markers.push(marker);
 	})
 
 	currentInfoWindow = new google.maps.InfoWindow({ content: null });
+
+}
+
+function closeAllWindows() {
+
+	for (i = 0; i < infoWindows.length; i++) 
+		infoWindows[i].close();
+
+	if (currentInfoWindow) 
+		currentInfoWindow.close()
+
 }
 
 
