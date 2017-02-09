@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link rel="stylesheet" href="css/main.css">
+		<script src="js/googleMap.js"></script>
+	    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT8Gs4FJ9XvQj98hImHnOF2Zy1y9ADCcA&callback=initMap"></script>
+	</head>
+	<body>
+
+		<div class="parallax">
+		</div>
+
+		<div class="container-border max-height" id="main-container">
+
+			<header>
+				<div class="row banner" id="main-banner">
+					<h1 id="welcome">Welcome to Shinjuku...</h1>
+					<div class="padded-block centered">
+						<h4 id="explore-btn">scroll to explore...</h4>
+					</div>
+				</div>
+			</header>
+
+			<main>
+				<div class="row">
+					<div id="map" class="centered">
+					</div>
+				</div>
+
+				<div class="container">
+					<div class="row" id="list-title">
+						<h4>Shinjuku -</h4>
+					</div>
+					<div class="row">
+						<ul class="flex" id="nav-list" data-bind="foreach: places">
+							<li data-bind="text: name, attr: {id: id}, click: $parent.animateMarker"></li>
+						</ul>
+					</div>
+				</div>
+			</main>
+		</div>
+	</body>
+	<script src="js/lib/knockout-3.4.1.js"></script>
+	<script src="js/main.js"></script>
+</html>

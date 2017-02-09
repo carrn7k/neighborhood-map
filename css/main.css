@@ -1,0 +1,98 @@
+* {
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #061f2b; }
+
+a {
+  text-decoration: none; }
+
+.parallax {
+  background-image: url("/Users/Heath/Documents/Apps/FullStackNanodegree/Neighborhood/NeighborhoodMap/img/shinjuku.jpg");
+  height: 310px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; }
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; }
+
+main {
+  visibility: visible; }
+
+.centered {
+  text-align: center; }
+
+.max-height {
+  height: 100%; }
+
+.container-border {
+  margin: 0; }
+
+.container-padded {
+  margin-right: 5px;
+  margin-left: 5px; }
+
+.flex {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
+.row {
+  width: 100%; }
+
+.padded-block {
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
+#main-container {
+  border-top: 5px solid #061f2b;
+  border-right: 5px solid #061f2b;
+  border-left: 5px solid #061f2b; }
+
+#main-banner {
+  height: 85px;
+  background-color: #170000;
+  border: 17px solid #051e2a;
+  box-shadow: white 1px 5px 18px 3px; }
+
+#welcome {
+  font-family: serif;
+  font-size: 28px;
+  background-color: rgba(165, 17, 6, 0.33);
+  border-radius: 5px;
+  box-shadow: #360501 5px 2px 9px 4px;
+  text-shadow: #040404 -2px 0px 1px;
+  color: #f6f4f4;
+  padding: 5px; }
+
+#explore-btn {
+  color: white; }
+
+#list-title {
+  background-color: black; }
+  #list-title h4 {
+    color: white;
+    background-color: black;
+    border: 10px solid black; }
+
+#nav-list {
+  list-style: none; }
+  #nav-list li {
+    width: 80px;
+    color: white;
+    padding: 5px; }
+
+#map {
+  max-width: 100%;
+  height: 300px;
+  background-color: blue; }
