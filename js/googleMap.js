@@ -42,13 +42,10 @@ function initMap() {
 }
 
 function closeAllWindows() {
-
 	for (i = 0; i < infoWindows.length; i++) 
 		infoWindows[i].close();
-
 	if (currentInfoWindow) 
 		currentInfoWindow.close()
-
 }
 
 
