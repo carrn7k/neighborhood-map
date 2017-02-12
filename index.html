@@ -41,7 +41,12 @@
 						<h4>Shinjuku -</h4>
 					</div>
 					<div class="row">
-						<ul class="flex" id="nav-list" data-bind="foreach: places">
+						<div class="row centered" id="select-buttons">
+							<button data-bind="click: function(type) { filterArray('food', placeList())}">Food</button>
+							<button data-bind="click: function(type) { filterArray('sightseeing', placeList())}">Sightseeing</button>
+							<button data-bind="click: function(type) { filterArray('shopping', placeList())}">Shopping</button>
+						</div>
+						<ul class="flex" id="nav-list" data-bind="foreach: currentArray">
 							<li data-bind="text: name, attr: {id: id}, click: $parent.displayWindow"></li>
 						</ul>
 					</div>

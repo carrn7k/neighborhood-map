@@ -59,15 +59,30 @@ var Place = function(place) {
 }
 
 function PlacesViewModel() {
+
 	var self = this;
 
-	self.buildArray = function(placeData) {
-		var array = ko.observableArray([]);
+	self.placeList = ko.observableArray([]);
+	self.currentArray = ko.observable();
+	
+	self.test = function(type, placeList) {
+		console.log(type);
+		console.log(placeList);
+	}
 
-		placeData.forEach(function(place) {
-			array.push(new Place(place));
-		})
-		return array
+	// Filter the array 
+	self.filterArray = function(type, array) {
+		if (!type) {
+			console.log("Filter Called With No Type");
+			self.currentArray(array.sort());
+		} else {
+			array = ko.computed(function() {
+				return ko.utils.arrayFilter(array, function(place) {
+						return place.type == type;
+				})
+			});
+		self.currentArray(array());
+		};
 	}
 
 	// Use the place id from the <li id=""> to retrieve 
@@ -106,7 +121,14 @@ function PlacesViewModel() {
 
 	}
 
-	this.places = this.buildArray(placeData.places);
+	// Populate the initial list
+	placeData.places.forEach(function(place) {
+		self.placeList.push(new Place(place));
+	})
+
+	// Initialize the list
+	self.currentArray(self.placeList());
+	console.log(self.currentArray());
 
 }
 

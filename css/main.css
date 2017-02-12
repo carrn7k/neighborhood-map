@@ -71,6 +71,15 @@ main {
 #explore-btn {
   color: white; }
 
+#select-buttons {
+  width: 100%; }
+  #select-buttons button {
+    display: inline-block;
+    width: 32%;
+    background-color: #a3ccff;
+    border: 1px solid orange;
+    border-radius: 3px; }
+
 #list-title {
   background-color: black; }
   #list-title h4 {
