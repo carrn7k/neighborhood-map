@@ -5,8 +5,8 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <link rel="stylesheet" href="css/main.css">
-	    <script src="js/googleMap.js"></script>
 	    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT8Gs4FJ9XvQj98hImHnOF2Zy1y9ADCcA&callback=initMap"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 	    <!-- FONTS -->
 	    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
@@ -40,6 +40,7 @@
 					<div class="row" id="list-title">
 						<h4>Shinjuku -</h4>
 					</div>
+					<div><button data-bind="click: function(type) { filterArray(null, placeList())}">Show All</button></div>
 					<div class="row">
 						<div class="row centered" id="select-buttons">
 							<button data-bind="click: function(type) { filterArray('food', placeList())}">Food</button>
@@ -50,10 +51,13 @@
 							<li data-bind="text: name, attr: {id: id}, click: $parent.displayWindow"></li>
 						</ul>
 					</div>
+					<div id="trip-advisor">
+					</div>
 				</div>
 			</main>
 		</div>
 	</body>
 	<script src="js/lib/knockout-3.4.1.js"></script>
+	<script src="js/googleMap.js"></script>
 	<script src="js/main.js"></script>
 </html>

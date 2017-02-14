@@ -64,23 +64,37 @@ function PlacesViewModel() {
 
 	self.placeList = ko.observableArray([]);
 	self.currentArray = ko.observable();
-	
-	self.test = function(type, placeList) {
-		console.log(type);
-		console.log(placeList);
-	}
 
 	// Filter the array 
 	self.filterArray = function(type, array) {
+
+		closeAllWindows();
+
 		if (!type) {
-			console.log("Filter Called With No Type");
+
 			self.currentArray(array.sort());
+
+			markers.forEach(function(marker) {
+				marker.setVisible(true);
+			});
+
 		} else {
+			
 			array = ko.computed(function() {
 				return ko.utils.arrayFilter(array, function(place) {
 						return place.type == type;
 				})
 			});
+
+			// hide or display filtered places
+			markers.forEach(function(marker) {
+				if (marker.type != type) {
+					marker.setVisible(false);
+				} else {
+					marker.setVisible(true);
+				}
+			});
+
 		self.currentArray(array());
 		};
 	}
@@ -93,6 +107,8 @@ function PlacesViewModel() {
 		})
 		return currentMarker
 	}
+
+
 
 	self.displayWindow = function(data) {
 
@@ -112,7 +128,7 @@ function PlacesViewModel() {
         	};
 		};
 
-		// Update the global window with the current marker
+		// Update the global info window with the current marker
 		// content and display the window
 		closeAllWindows();
 
@@ -126,24 +142,46 @@ function PlacesViewModel() {
 		self.placeList.push(new Place(place));
 	})
 
-	// Initialize the list
+	// Initially, set currentArray to the 
+	// initial list
 	self.currentArray(self.placeList());
-	console.log(self.currentArray());
+
 
 }
 
 
 var MarkersViewModel = {
 
+	// Populate the list markers
 	init: function() {
 
 		placeData.places.forEach(function(place) {
 			if (place.coordinates) {
-				placeCoords.push([place.coordinates, place.id, place.info]);
+				placeCoords.push([place.coordinates, place.id,
+					place.info, place.type]);
 			};
 		});
 	}
+
 }
 
 ko.applyBindings(new PlacesViewModel());
 MarkersViewModel.init();
+
+// SCROLL TEST
+
+var mainBanner = $("#main-banner");
+
+$(document).on("scroll", function() {
+	if ($( this ).scrollTop() > 243) {
+		mainBanner.css("position", "absolute");
+		mainBanner.css("top", 244);
+	}
+	else {
+		mainBanner.css("position", "fixed");
+		mainBanner.css("top", 0);
+	}
+})
+
+
+// API'S 

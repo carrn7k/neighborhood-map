@@ -11,7 +11,7 @@ function initMap() {
 
 	map = new google.maps.Map(document.getElementById('map'), {
   		center: shinjukuCords,
-  		zoom: 8
+  		zoom: 15
 	});
 
 	placeCoords.forEach(function(place) {
@@ -19,13 +19,14 @@ function initMap() {
 			position: place[0],
 			placeID: place[1],
 			info: place[2],
+			type: place[3],
 			animation: google.maps.Animation.DROP,
 			map: map,
 		})
 
 		var infowindow = new google.maps.InfoWindow({
-          content: place[2]
-        });
+	      content: place[2]
+	    });
 
 		marker.addListener('click', function() {
 			// close all other info windows 
@@ -35,6 +36,7 @@ function initMap() {
 
 		infoWindows.push(infowindow);
 		markers.push(marker);
+
 	})
 
 	currentInfoWindow = new google.maps.InfoWindow({ content: null });

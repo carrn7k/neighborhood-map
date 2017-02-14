@@ -16,7 +16,7 @@ a {
 	text-decoration: none;
 }
 .parallax {
-	background-image: url("/Users/Heath/Documents/Apps/FullStackNanodegree/Neighborhood/NeighborhoodMap/img/shinjuku.jpg");
+	background-image: url("../img/shinjuku.jpg");
 	height: 310px;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -105,6 +105,10 @@ main {
 		width: 80px;
 		color: white;
 		padding: 5px;
+		cursor: pointer;
+	}
+	li:hover {
+		color: grey;
 	}
 }
 #map {
