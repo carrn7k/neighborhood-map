@@ -1,0 +1,319 @@
+$primary-color: #061f2b;
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-color: $primary-color;
+}
+a {
+	text-decoration: none;
+}
+i {
+	margin-right: 5px;
+}
+.parallax {
+	background-image: url("../img/shinjuku.jpg");
+	height: 310px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+main {
+	visibility: visible;
+}
+footer {
+	div {
+		width: 100%;
+		height: 30px;
+		background-color: black;
+	}
+}
+.centered {
+	text-align: center;
+}
+.max-height {
+	height: 100%;
+}
+.container-border {
+	margin: 0;
+}
+.container-padded {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+.flex-wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+.flex {
+	display: flex;
+}
+
+.row {
+	width: 100%;
+}
+.col-3 {
+	width: 25%;
+}
+.col-9 {
+	width: 75%;
+}
+.padded-block {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+
+#main-container {
+	border-top: 5px solid $primary-color;
+	border-right: 5px solid $primary-color;
+	border-left: 5px solid $primary-color;
+}
+#main-banner {
+}
+#welcome {
+	font-family: 'Roboto Slab', serif;
+    font-size: 28px;
+    background-color: rgb(6, 31, 43);
+    box-shadow: #fbfbfb 0px 0px 2px 5px;
+    text-shadow: #040404 -2px 0px 1px;
+    color: #f6f4f4;
+    padding: 5px;
+}       	
+#explore-btn {
+	color: white;
+}
+
+#map-container{
+	
+}
+.map-fixed {
+	position: fixed;
+	top: 0;
+}
+
+#select-buttons {
+	width: 100%;
+	button {
+		display: inline-block;
+		width: 32%;
+		background-color: #a3ccff;
+		border: 1px solid orange;
+		border-radius: 3px;
+	}
+}
+
+#srch-container {
+	height: 400px;
+	background: rgb(22, 107, 128);
+    padding-right: 10px;
+    padding-left: 10px;
+}
+#list-title {
+	color: white;
+	margin-top: 30px;
+	h2 {
+		padding-top: 5px;
+		font-size: 34px;
+		font-family: 'Oswald', sans-serif;
+	}
+}
+#nav-list {
+	list-style: none;
+	padding-bottom: 10px;
+	li {
+    	color: #cce3f9;
+    	cursor: pointer;
+    	font-size: 14px;
+    	/*font-family: Roboto;*/
+    	font-family: 'Merriweather', serif;
+	}
+	li:hover {
+		color: grey;
+	}
+}
+#map {
+	color: red;
+	font-size: 20px;
+	max-width: 100%;
+	height: 300px;
+	background-color: white;
+}
+
+#filter-list {
+	height: 200px;
+}
+
+#dropDown {
+	background-size: cover;
+    background-repeat: no-repeat;
+	background-image: url("http://img.timeinc.net/time/photoessays/2009/tokyo/tokyo_shinjuku.jpg");
+    min-height: 200px;
+    width: 227px;
+    margin-top: -18px;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: black 1px -1px 11px 2px;
+}
+
+#dropActivate {
+	position: relative;
+	margin: -1px;
+	background: $primary-color;
+    padding: 5px 0 2px 4px;
+    border-bottom: 2px solid #061f2b;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 9px;
+    color: white;
+    font-family: 'Merriweather', serif;
+}
+
+#dropDownList {
+	display: none;
+	position: absolute;
+	margin-top: -1px;
+	width: 144px;
+	background-color: #cce3f9;
+	min-height: 188px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	a {
+		text-align: left;
+		display: flex;
+		text-decoration: none;
+		padding: 0 0 3px 5px;
+		color: black;
+	}
+	a:first-of-type {
+		padding-top: 5px;
+	}
+	a:hover {
+		color: grey;
+	}
+}
+
+#dropDownList:hover {
+	display: block;
+}
+
+#review-title {
+	color: white;
+	font-family: 'Oswald', sans-serif;
+}
+#review-body {
+	color: white;
+	padding: 10px;
+}
+
+#review-link {
+	color: white;
+	padding: 10px;
+}
+#review-link:hover {
+	color: grey;
+}
+
+/* Flickr Images */
+#flickr {
+	margin-right: 5px;
+	margin-left: 5px;
+	img {
+		width: 50%;
+		padding: 5px;
+		border: 2px solid white;
+	}
+}
+
+/* Info Window */
+
+.gm-style-iw {
+	background: $primary-color;
+	width: 301px !important;
+    height: 180px !important;
+   	top: 0 !important;
+   	left: 0 !important;
+   	border-radius: 2px 2px 0 0;
+}
+
+#iw-container {
+	padding: -20px;
+	margin: 0;
+}
+
+#iw-head {
+	width: 250px;
+	padding-top: 10px;
+	color: white;
+	h2 {
+		width: 100%;
+		margin-top: -1px;
+		text-align: left;
+    	border-bottom: 1px solid white;
+    	box-shadow: black 3px 2px 9px;
+    	padding-bottom: 1px;
+	}
+}
+#iw-body {
+	display: flex;
+	width: 250px;
+	height: 170px;
+	background: #166b80;
+	text-align: left;
+	color: white;
+	div {
+		padding: 5px;
+	}
+	img {
+		max-width: 100%;
+		height: 100%;
+	}
+}
+
+#iw-text {
+	color: white;
+	width: 50%;
+	margin-top: 15px;
+}
+
+#iw-pic {
+	margin-top: 20px;
+	width: 50%;
+	height: 100px;
+}
+
+/* Break Points */
+
+@media screen and (max-width: 465px) {
+	#nav-list {
+		margin-top: 5px;
+		li {
+			width: 100%;
+			padding: 0 3px 8px 4px;
+		}
+	}
+}
+
+@media screen and (min-width: 466px) {
+	#nav-list {
+		margin-top: 50px;
+		li {
+			width: 33%;
+			padding: 0 5px 30px 7px;
+		}
+	}
+}
