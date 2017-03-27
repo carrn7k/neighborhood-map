@@ -18,6 +18,7 @@
 	    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 	    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
 	    <link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.min.css">
+	    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 
 	</head>
@@ -26,7 +27,7 @@
 		<div class="parallax" id="plx">
 		</div>
 
-		<div class="container-border max-height" id="main-container">
+		<div class="container-border" id="main-container">
 
 			<header>
 				<div class="row banner" id="main-banner">
@@ -44,57 +45,81 @@
 					</div>
 				</div>
 
-				<div class="container" id=srch-container>
-					<div class="row" id="list-title">
-						<h2>Search Places!</h2>
-					</div>
-					<!--<div>
-						<button data-bind="click: function(type) { filterArray(null, placeList())}">Show All</button>
-					</div>-->
+				<div class="container" id="info-container">
 
-					<div class="row flex" id="filter-list">
-						<!-- Beta Search -->
-						<div class="col-3" id="dropDown">
-							<div id="dropActivate"><span>Filter by Category<i class="fa fa-filter" aria-hidden="true"></i></span></div>
-							<div id="dropDownList">
-								<a href="#" data-bind="click: function(type) { filterArray(null, placeList())}">all</a>
-								<a href="#" data-bind="click: function(type) { filterArray('food', placeList())}"><i class="fa fa-cutlery" aria-hidden="true"></i>food</a>
-								<a href="#" data-bind="click: function(type) { filterArray('sightseeing', placeList())}"><i class="fa fa-eye" aria-hidden="true"></i>sightseeing</a>
-								<a href="#" data-bind="click: function(type) { filterArray('shopping', placeList())}"><i class="fa fa-shopping-bag" aria-hidden="true"></i>shopping</a>
-								<a href="#" data-bind="click: function(type) { filterArray('station', placeList())}"><i class="fa fa-train" aria-hidden="true"></i>station</a>
-								<a href="#" data-bind="click: function(type) { filterArray('bar', placeList())}"><i class="fa fa-glass" aria-hidden="true"></i>bar</a>
+					<div class="container" id=srch-container>
+						<div class="row" id="list-title" class="centered">
+							<h2>Explore Places!</h2>
+						</div>
+						<!--<div>
+							<button data-bind="click: function(type) { filterArray(null, placeList())}">Show All</button>
+						</div>-->
+
+						<div class="row flex" id="filter-list">
+							<!-- Beta Search -->
+							<div class="col-3" id="dropDown">
+								<div id="dropActivate"><span>Filter by Category&nbsp;&nbsp;<i class="fa fa-filter" aria-hidden="true"></i></span></div>
+								<div id="dropDownList">
+									<a href="#" data-bind="click: function(type) { filterArray(null, placeList())}">ALL</a>
+									<a href="#" data-bind="click: function(type) { filterArray('food', placeList())}"><i class="fa fa-cutlery" aria-hidden="true"></i><span>food</span></a>
+									<a href="#" data-bind="click: function(type) { filterArray('sightseeing', placeList())}"><i class="fa fa-eye" aria-hidden="true"></i><span>sightseeing</span></a>
+									<a href="#" data-bind="click: function(type) { filterArray('shopping', placeList())}"><i class="fa fa-shopping-bag" aria-hidden="true"></i><span>shopping</span></a>
+									<a href="#" data-bind="click: function(type) { filterArray('station', placeList())}"><i class="fa fa-train" aria-hidden="true"></i><span>station</span></a>
+									<a href="#" data-bind="click: function(type) { filterArray('bar', placeList())}"><i class="fa fa-glass" aria-hidden="true"></i><span>bar</span></a>
+								</div>
+							</div>
+							<div class="col-9" id="list-container">
+								<ul id="nav-list" data-bind="foreach: currentArray">
+									<li data-bind="text: name, attr: {id: id}, click: $parent.displayInfo"></li>
+								</ul>
 							</div>
 						</div>
-						<div class="col-9">
-							<ul class="flex-wrap" id="nav-list" data-bind="foreach: currentArray">
-								<li data-bind="text: name, attr: {id: id}, click: $parent.displayWindow"></li>
-							</ul>
+					</div>
+
+					<div class="container" id="rv-container">
+						<div class="row">
+							<h2 id="review-title">Reviews</h2>
 						</div>
+						
+
+						<div class="container-padded" id="inner-rv">
+							<!-- Yelp Reviews -->
+							<div class="row">
+								<a href="https://www.yelp.com"><img src="../static/img/Yelp_trademark_RGB_outline.png" class="review-header" id="yelp-logo" /></a>
+								<div id="yelp-reviews" data-bind="foreach: currentYelp">
+									<a data-bind="attr: { href: url }"><p class="review" id="review-body" data-bind="text: text"></p></a>
+								</div>
+								<a data-bind="attr: { href: yelpUrl }, text: yelpLink" class="r-link" id="yelp-link"></a>
+							</div>
+							
+							<!-- Trip Expert Reviews -->
+							<div class="row">
+								<div class="row">
+									<a href="https://www.tripexpert.com/"><img class="review-header" src="../static/img/basic-logo.png" id="trip-expert-logo" /></a>
+								</div>
+								<p class="review" id="review-body" data-bind="text: currentReview"></p>
+								<a data-bind="attr: { href: reviewUrl }, text: reviewLink" class="r-link" id="review-link"></a>
+								<a data-bind="attr: { href: tripExpertUrl }, text: tripExpertLink" class="r-link"></a>
+							</div>
+
+						</div>
+
+						<!-- Flickr Photos -->
+						<div class="row" id="photo-title">
+							<h3>Check Out Some Photos from Flickr</h3>
+						</div>
+
+						<div class="container-padded flex-wrap" id="flickr">
+						</div>
+
 					</div>
+
 				</div>
 
-				<div class="container">
-					<div class="row">
-						<h2 id="review-title">Reviews</h2>
-					</div>
-					<div class="row">
-						<p id="review-body" data-bind="text: currentReview"><p>
-						<a data-bind="attr: { href: reviewUrl }, text: reviewLink" id="review-link"></a>
-					</div>
+				<div class="row" id="yelp">
+					<span data-token='{{ DATA }}' id="yelp-data"></span>
 				</div>
-
 					
-					<!--
-					<div class="row" id="yelp">
-						<span data-token='{{ DATA }}' id="yelp-data"></span>
-						<form id="yelp-form">
-							<button id="yelp-btn">Submit</button>
-						</form>
-					</div>
-					-->
-
-				<div class="container-padded flex-wrap"id="flickr">
-				</div>
 					
 					<!--
 					<button id="flickButton">Click Me!!!</button>
@@ -105,15 +130,10 @@
 						<button data-bind="click: function(type) { filterArray('shopping', placeList())}">Shopping</button>
 					</div>-->
 
-				</div>
 			</main>
 		</div>
 	</body>
 
-	<footer>
-		<div></div>
-	</footer>
-	
 	<script src="../static/js/googleMap.js"></script>
 	<script src="../static/js/lib/knockout-3.4.1.js"></script>
 	<script src="../static/js/main.js"></script>

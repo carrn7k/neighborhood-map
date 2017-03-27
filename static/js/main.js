@@ -7,25 +7,25 @@ var placeData = {
 			id: 1,
 			type: ["food"],
 			name: "Moyan",
-			info: "Moyan is a delicious curry restaurant that you have to try!",
+			info: "A cool little Japanese curry restaurant! The food is awesome and the atmosphere is awesome too!",
 			tags: ["curry", "drinks", "delicious"],
-			pic: "http://img.timeinc.net/time/photoessays/2009/tokyo/tokyo_shinjuku.jpg",
+			pic: "http://bento.com/rp/500/500-nshinj-moyanome.jpg",
 			coordinates: {lat: 35.696275, lng: 139.690556}
 		},
 		{	
 			id: 2,
 			type: ["food"],
 			name: "Ichiran",
-			info: "This Is Content about Ichiran!",
+			info: "Ichiran is a popular ramen chain. It's delicious, so be prepared for a bit of a line.",
 			tags: ["ramen", "delicious"],
-			pic: "http://img.timeinc.net/time/photoessays/2009/tokyo/tokyo_shinjuku.jpg",
+			pic: "https://foodsaurus.files.wordpress.com/2014/04/dsc01961.jpg?w=646",
 			coordinates: {lat: 35.691675, lng: 139.702848}
 		},
 		{	
 			id: 3,
 			type: ["sightseeing", "park"],
 			name: "Shinjuku Gyoen National Garden",
-			info: "This Is Content about Shinjuku Gyoen!",
+			info: "One of Tokyo's best parks. A great place to relax and enjoy the scenery.",
 			tags: ["park", "cherry trees", "garden"],
 			pic: "http://img.timeinc.net/time/photoessays/2009/tokyo/tokyo_shinjuku.jpg",
 			coordinates: {lat: 35.686301, lng: 139.710095}
@@ -33,8 +33,8 @@ var placeData = {
 		{	
 			id: 4,
 			type: ["shopping", "station"],
-			name: "Shinjuku Station",
-			info: "This Is Content about Shinuku Station!",
+			name: "JR Shinjuku Station",
+			info: "The world's busiest station and hub for travel around Tokyo.",
 			tags: ["station", "shopping", "train"],
 			pic: "https://1.bp.blogspot.com/-eVWv6ar8LLI/VwJ4Zm4CrxI/AAAAAAAAoyM/IbnSs-Q2yp4-K0rLYvYwDq88mCOPeD0KQ/s1600/koshu-kaido-gate.jpg",
 			coordinates: {lat: 35.690788, lng: 139.699600}
@@ -43,16 +43,16 @@ var placeData = {
 			id: 5,
 			type: ["food"],
 			name: "Menya",
-			info: "This is Content about Menya!",
+			info: "A great ramen shop in west Shinjuku. Like Ichiran, it's also popular, so be prepared for a line.",
 			tags: ["ramen", "delicious"],
-			pic: "http://img.timeinc.net/time/photoessays/2009/tokyo/tokyo_shinjuku.jpg",
+			pic: "http://farm8.staticflickr.com/7384/11326667626_9ee3a4f15f_z.jpg",
 			coordinates: {lat: 35.696458, lng: 139.698653}
 		},
 		{	
 			id: 6,
 			type: ["sightseeing"],
-			name: "Tokyo Metropolitan Government Buildings",
-			info: "This Is Content About TMB!",
+			name: "Tokyo Metropolitan Government Building",
+			info: "A great place to get a view of Tokyo for free.",
 			tags: ["view", "skyscraper"],
 			pic: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Tokyo_Metropolitan_Government_Building_2012.JPG/300px-Tokyo_Metropolitan_Government_Building_2012.JPG",
 			coordinates: {lat: 35.690645, lng: 139.692358}
@@ -60,16 +60,26 @@ var placeData = {
 		{	
 			id: 7,
 			type: ["bar"],
-			name: "Shinjuku Golden Gai",
-			info: "This Is Content About Shinjuku Golden Gai!",
+			name: "Shinjuku Goldengai",
+			info: "If you like drinking and want a different experience than a typical bar, you should check this place out.",
 			tags: ["bar", "drinks", "food"],
-			pic: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Tokyo_Metropolitan_Government_Building_2012.JPG/300px-Tokyo_Metropolitan_Government_Building_2012.JPG",
+			pic: "http://www.tokyoezine.com/wp-content/uploads/2011/03/Golden-Gai.jpg",
 			coordinates: {lat: 35.694021, lng: 139.704624}
+		},
+		{	
+			id: 8,
+			type: ["shopping", "bar", "sightseeing"],
+			name: "Kabukicho",
+			info: "Tokyo's red light district. Tons of restaurants and interesting things to do and see.",
+			tags: ["shopping", "drinks", "fun"],
+			pic: "https://meetrip.to/spotimg/kabukicho_6.jpg",
+			coordinates: {lat: 35.6949, lng: 139.7029}
 		}			
-	], 
+	],
 }
 
 
+// Object to construct places
 var Place = function(place) {
 	this.id = place.id;
 	this.type = place.type;
@@ -79,38 +89,44 @@ var Place = function(place) {
 	this.coordinates = place.coordinates;
 }
 
-
-
 function PlacesViewModel() {
 
 	var self = this;
 
-	// Data 
+	// Place Data 
 	self.placeList = ko.observableArray([]);
 	self.currentArray = ko.observable();
 
-	self.currentReview = ko.observable('Click a Place to See Reviews!');
+	// Review Info
+	self.currentReview = ko.observable('Select a Place to See Reviews!');
 	self.reviewUrl = ko.observable();
 	self.reviewLink = ko.observable();
+	self.tripExpertUrl = ko.observable();
+	self.tripExpertLink = ko.observable();
+	self.currentYelp = ko.observableArray();
+	self.yelpUrl = ko.observable();
+	self.yelpLink = ko.observable();
 
 	// DOM elements
 	self.dropDown = $('#dropDown');
 	self.dropActivate = $('#dropActivate');
 	self.dropDownList = $('#dropDownList');
-	self.reviewBody = $('#review-body');
+	self.reviewHeaders = $('.review-header');
 	self.flickr = $('#flickr');
+	self.photoTitle = $('#photo-title');
+	self.tripExpertLogo = $("#trip-expert-logo");
+	self.yelpLogo = $("#yelp-logo");
 
-
-
-
-	// Filter the array 
+	// Filter the array to show only places that match a given 
+	// type. The function takes a type as a string and the array
+	// of places.
 	self.filterArray = function(type, array) {
 
-		// Close all currently open infoWindows while filtering
+		// Close all currently open infoWindows while filtering.
 		mapHandler.closeAllWindows();
 
-		// If no specific category is selected, set the array
-		// to display all categories
+		// If no specific category is selected, set the current array
+		// to display all categories.
 		if (!type) {
 
 			self.currentArray(array.sort());
@@ -120,22 +136,18 @@ function PlacesViewModel() {
 			});
 
 		} else {
-			
 			// If a type is passed as an argument, update the 
 			// current array to include matching types
 			array = ko.computed(function() {
-				//console.log(type);
+				
 				return ko.utils.arrayFilter(array, function(place) {
-						// console.log(place.type);
-						// console.log(place.type.indexOf(type));
 						return place.type.indexOf(type) !== -1
 				})
 			});
-
-			// Hide or display the markers that match the 
-			// type
+			// Hide markers that don't match the type and hide those
+			// that don't.
 			markers.forEach(function(marker) {
-				if (marker.type != type) {
+				if (marker.type.indexOf(type) == -1) {
 					marker.setVisible(false);
 				} else {
 					marker.setVisible(true);
@@ -157,7 +169,7 @@ function PlacesViewModel() {
 	}
 
 	// Display the infoWindow that is currently selected
-	self.displayWindow = function(data) {
+	self.displayInfo = function(data) {
 
 		var focusMarker = self.getCurrentMarker(data);
 
@@ -178,17 +190,22 @@ function PlacesViewModel() {
 		// Update the global info window with the current marker
 		// content and display the window
 		mapHandler.closeAllWindows();
-
 		currentInfoWindow.setContent(focusMarker[0].info);
 		currentInfoWindow.open(map, focusMarker[0]);
 
-		self.loadTripExpert(data.name);
-		self.displayReviews(data);
+		// When a list item is clicked, it also triggers calls to 
+		// Flickr and Trip Expert API's 
+		self.currentYelp([]);
+		self.loadReviews(data.name, data.coordinates);
+
+		self.flickr.html('');
+		loadFlick(data);
+		// self.displayPhotos(data);
 
 	}
 
-	// Initially, set currentArray to the 
-	// initial list
+	// The current array is initialized to the ko observable array
+	// named placeList()
 	self.currentArray(self.placeList());
 
 	// Populate the initial list
@@ -196,73 +213,163 @@ function PlacesViewModel() {
 		self.placeList.push(new Place(place));
 	})
 
-	// Display reviews on a marker click
-	self.displayReviews = function(data){
-		self.flickr.html('');
-		loadFlick(data);
+	self.loadVenue = function(venues, key) {
+
+		var vURL = "https://api.tripexpert.com/v1/venues/" + venues[i].id +
+							"?api_key=" + key;
+
+		$.ajax({
+			url: vURL,
+			type: "GET",
+			cache: false,
+			success: function(venueData) {
+
+				console.log(venueData);
+
+				self.tripExpertLogo.css("display", "block");
+
+				var review = venueData.response.venues[0].reviews[0].extract;
+				var tripPath = venueData.response.venues[0].path;
+				var url = venueData.response.venues[0].reviews[0].source_url;
+				var source = venueData.response.venues[0].reviews[0].publication_name;
+
+				var tUrl = "https://www.tripexpert.com/" + tripPath;
+
+				self.currentReview(review);
+				self.reviewUrl(url);
+				self.tripExpertUrl(tUrl)
+				self.tripExpertLink("Visit tripExpert for more reviews");
+				self.reviewLink("Click Here for Full Review from " + source);
+			},
+			error: function() {
+				console.log("Venue retrieval error");
+				self.currentReview("Sorry, something went wrong when fetching your reviews.");
+			}
+		}); 
 	}
 
-	// Trip Expert Reviews
-	self.loadTripExpert = function(placeName) {
+	self.loadYelp = function(placeName, coords) {
+
+		var placeData = {'placeName': placeName, 'coords': coords};
+		// var placeData = [placeName, coords['lat'], coords['lng']];	
+		var placeDataJson = JSON.stringify(placeData);
+
+
+		self.yelpLink(' ');
+
+		$.ajax({
+			url: '/yelpReviews',
+			type: 'POST',
+			data: placeDataJson,
+			contentType: 'application/json;charset=UTF-8',
+			dataType: 'json',
+			success: function(yelpData) {
+
+				if (yelpData) {
+
+					console.log(yelpData);
+
+					self.yelpLogo.css("display", "block");
+
+					yelpData['reviews']['reviews'].forEach(function(review) {
+						self.currentYelp.push(review);
+					});
+
+					self.yelpUrl(yelpData['url']);
+					self.yelpLink("Visit Yelp for More Info on " + placeName);
+				} else {
+					self.currentYelp("Sorry, there were no yelp reviews for this place");
+				}
+			},
+			error: function(e) {
+				self.currentYelp("Sorry, there was an error fetching your reviews :(")
+			}
+		})
+	}
+
+	self.loadTripExpert = function(placeName, coords) {
 
 		var tripExpertKey = "ec94a7b46ad42d743651578cd86ac4cb"
 		var country_id = 25;
 
 		var venueURL = "https://api.tripexpert.com/v1/venues?api_key=" + 
-			tripExpertKey + "&destination_id=2&order_by=distance&latitude=35.6938" + 
-			"&longitude=139.7035";
+			tripExpertKey + "&destination_id=2&order_by=distance&latitude=" + 
+			coords.lat + "&longitude=" + coords.lng;
+
 
 		// The first ajax call collects a list of venues near the primary location
 		$.ajax({
 			url: venueURL,
 			type: 'GET',
+			cache: false,
 
-			// Loop through the list of venues and return venue data if it matches
-			// the desired place name.
+			// The initial AJAX call narrows the search result to the Shinjuku
+			// primary location area
 			success: function(data) {
 
-				var reviewData = null;
+				var tripExpertReviews = [];
+				var yelpReviews = null;
 				var venues = data.response.venues;
 
-				// 
+
+				// Search through venues in the primary location to return any matches
+				// for the desired venue
+				var match = false;
 				for (i = 0; i < venues.length; i++) {
 
-					if (venues[i].name == placeName) {
+					console.log(venues[i]['name']);
 
-						var vURL = "https://api.tripexpert.com/v1/venues/" + venues[i].id +
-							"?api_key=" + tripExpertKey;
-
-						$.ajax({
-							url: vURL,
-							type: "GET",
-							success: function(venueData) {
-
-								var review = venueData.response.venue[0].reviews[0].extract;
-								var url = venueData.response.venue[0].reviews[0].source_url;
-								var source = venueData.response.venue[0].reviews[0].publication_name;
-
-								self.currentReview(review);
-								self.reviewUrl(url);
-								self.reviewLink("Click Here for Full Review from " + source);
-							},
-							error: function() {
-								console.log("Venue retrieval error");
-							}
-						}); 
+					// Use the loadVenue function to get the tripExpert info and update
+					// the DOM.
+					if (placeName.length >= venues[i]['name'].length) {
+						matchTest = placeName.toLowerCase();
+						searchTest = venues[i]['name'].toLowerCase();
 					} else {
-						self.currentReview("Sorry, there are no reviews for this place yet, but please enjoy the photos!");
-						self.reviewUrl('');
-						self.reviewLink('');
+						matchTest = venues[i]['name'].toLowerCase();
+						searchTest = placeName.toLowerCase();
 					}
+
+					var test = matchTest.indexOf('shinjuku'); 
+
+					if (test != -1) {
+						searchSplit = searchTest.split(" ");
+						searchTest = searchSplit[searchSplit.length -1];
+					}
+
+					if (matchTest.includes(searchTest) &&
+						searchTest != 'shinjuku') {
+
+						match = true;
+						self.loadVenue(venues, tripExpertKey);
+						break;
+					}
+				}
+				if (match == false) {
+					self.currentReview("Sorry, there are no reviews from Trip Expert for this place yet, but please enjoy the photos!");
+					self.reviewUrl('');
+					self.reviewLink('');
 				}
 			},
 			error: function() {
-				console.log("Fuck this shit!");
+				self.currentReview("Sorry, something went wrong when searching for this venue...");
 			}
 		})
 	}
 
-	// self.disReviews.on("click", self.loadTripExpert());
+	// This function calls the Yelp and TripExpert API's 
+	self.loadReviews = function(placeName, coords) {
+
+		// Display the headings to the reviews
+		self.reviewHeaders.css("display", "block");
+		self.photoTitle.css("display", "block");
+
+		// Make sure that the previous reviews have been cleared
+		self.currentYelp([]);
+		self.loadYelp(placeName, coords);
+
+		self.loadTripExpert(placeName, coords);
+
+	}
 
 	// Toggle the DropDown Menu
 	self.dropActivate.hover(function() {
@@ -277,10 +384,6 @@ function PlacesViewModel() {
 		})
 
 	})
-
-	// 	self.populateVenues();
-
-
 }
 
 // Create an infoWindow build function which 
@@ -382,7 +485,7 @@ function loadFlick(data) {
 
 	var flickURL = 'https://api.flickr.com/services/rest/?method=' + method + 
 	'&lat=' + lat + '&lon=' + lon + '&api_key=' +
-	flickKey + '&per_page=4&format=json&nojsoncallback=1&sort=relevance' +
+	flickKey + '&per_page=8&format=json&nojsoncallback=1&sort=interestingness-desc' +
 	'&radius=1&tags=' + tags;
 
 	$.ajax( {
@@ -417,17 +520,12 @@ function loadFlick(data) {
 				})
 			}
 			else {
-				console.log('Houston, we have a problem');
+				console.log("Photos failed to load");
 			}
 		},
 		error: function(e) {
 			console.log(e);
+			flickrDIV.text("Sorry, there was an error getting your photos :(")
 			}
-
-			/*var url = 'https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg'
-			flickrDIV.append("<img src=" + url + "/>")*/
 		})
 	}
-
-// loadFlick();
-// $('#flickButton').on('click', loadFlick());

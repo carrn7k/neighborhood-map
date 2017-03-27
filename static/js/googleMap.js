@@ -40,7 +40,7 @@ window.initMap = function() {
 }
 
 
-// Object to Handle Google Map and Markers
+// Handles Google Map and Markers
 var mapHandler = {
 
 	// Construct Markers and a corresponding info window
@@ -91,57 +91,3 @@ var mapHandler = {
 	}
 }
 
-// Ensure that the map is properly loaded, if not
-// display an error message in the map div
-/*setTimeout(function() {
-	if (typeof window.google.map == 'undefined') {
-		console.log(typeof window.google.map);
-		/// $("#map").text("Sorry, Google Maps failed to load :(");
-	}
-	else {
-		console.log("Map Loaded");
-	}
-}, 6000);*/
-
-
-/* function buildCoords() {
-	placeCoords.forEach(function(place) {
-		var marker = new google.maps.Marker({
-			position: place[0],
-			placeID: place[1],
-			info: place[2],
-			type: place[3],
-			animation: google.maps.Animation.DROP,
-			map: map,
-		})
-
-		var infowindow = new google.maps.InfoWindow({
-	      content: place[2]
-	    });
-
-		marker.addListener('click', function() {
-			// close all other info windows 
-			closeAllWindows();
-			infowindow.open(map, marker);
-		});
-
-		infoWindows.push(infowindow);
-		markers.push(marker);
-
-	})
-
-}
-
-function closeAllWindows() {
-	for (i = 0; i < infoWindows.length; i++) 
-		infoWindows[i].close();
-	if (currentInfoWindow) 
-		currentInfoWindow.close()
-}*/
-
-/*window.onload = function() {
-	
-	document.addEventListener("scroll", function() {
-		// something here
-	})
-}*/

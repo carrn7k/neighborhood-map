@@ -19,7 +19,7 @@ i {
   height: 310px;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position-y: -130px;
   background-attachment: fixed; }
 
 .banner {
@@ -65,6 +65,9 @@ footer div {
 .col-3 {
   width: 25%; }
 
+.col-6 {
+  width: 50%; }
+
 .col-9 {
   width: 75%; }
 
@@ -89,6 +92,9 @@ footer div {
 #explore-btn {
   color: white; }
 
+#map {
+  box-shadow: black 2px 4px 14px 2px; }
+
 .map-fixed {
   position: fixed;
   top: 0; }
@@ -103,28 +109,27 @@ footer div {
     border-radius: 3px; }
 
 #srch-container {
-  height: 400px;
+  height: 363px;
   background: #166b80;
   padding-right: 10px;
   padding-left: 10px; }
 
 #list-title {
   color: white;
-  margin-top: 30px; }
+  margin-top: 15px;
+  padding-bottom: 5px; }
   #list-title h2 {
     padding-top: 5px;
     font-size: 34px;
-    font-family: 'Oswald', sans-serif; }
+    font-family: "Oswald", sans-serif; }
 
 #nav-list {
-  list-style: none;
   padding-bottom: 10px; }
   #nav-list li {
     color: #cce3f9;
     cursor: pointer;
     font-size: 14px;
-    /*font-family: Roboto;*/
-    font-family: 'Merriweather', serif; }
+    font-family: "Merriweather", serif; }
   #nav-list li:hover {
     color: grey; }
 
@@ -136,7 +141,12 @@ footer div {
   background-color: white; }
 
 #filter-list {
-  height: 200px; }
+  height: 225px; }
+
+#list-container {
+  overflow-y: overlay;
+  max-height: 240px;
+  margin-top: -10px; }
 
 #dropDown {
   background-size: cover;
@@ -159,7 +169,7 @@ footer div {
   border-top-right-radius: 8px;
   border-top-left-radius: 9px;
   color: white;
-  font-family: 'Merriweather', serif; }
+  font-family: "Merriweather", serif; }
 
 #dropDownList {
   display: none;
@@ -168,36 +178,80 @@ footer div {
   width: 144px;
   background-color: #cce3f9;
   min-height: 188px;
+  border-top: 3px solid black;
   border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px; }
+  border-bottom-left-radius: 10px;
+  box-shadow: #061f2b 3px 2px 5px 2px; }
   #dropDownList a {
     text-align: left;
     display: -ms-flexbox;
     display: flex;
     text-decoration: none;
-    padding: 0 0 3px 5px;
+    padding: 1px 0px 4px 6px;
     color: black; }
   #dropDownList a:first-of-type {
     padding-top: 5px; }
   #dropDownList a:hover {
     color: grey; }
+  #dropDownList span {
+    position: absolute;
+    left: 30px; }
 
 #dropDownList:hover {
   display: block; }
 
+.review {
+  padding: 0 15px 5px 15px;
+  font-family: "Merriweather", serif; }
+
+#inner-rv {
+  background-color: #ebfbff;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 3px; }
+  #inner-rv div {
+    padding: 10px; }
+    #inner-rv div h4 {
+      display: none;
+      font-family: "Oswald", sans-serif;
+      font-size: 19px; }
+  #inner-rv div:nth-child(2) {
+    margin-top: -35px; }
+
 #review-title {
+  margin-left: 10px;
+  margin-right: 10px;
   color: white;
-  font-family: 'Oswald', sans-serif; }
+  border-bottom: 3px solid white;
+  font-family: "Oswald", sans-serif; }
 
-#review-body {
-  color: white;
-  padding: 10px; }
+#yelp-reviews a:hover {
+  text-decoration: none;
+  color: grey; }
 
-#review-link {
-  color: white;
-  padding: 10px; }
+#yelp-reviews p {
+  color: #061f2b; }
 
-#review-link:hover {
+#yelp-reviews p:hover {
+  color: grey; }
+
+#trip-expert-logo {
+  display: none;
+  width: 120px;
+  margin-top: 20px; }
+
+#yelp-logo {
+  display: none;
+  width: 120px; }
+
+.r-link {
+  display: block;
+  margin-bottom: 5px;
+  color: #166b80;
+  text-decoration: underline;
+  padding: 0 15px 0px 15px; }
+
+.r-link:hover {
   color: grey; }
 
 /* Flickr Images */
@@ -209,66 +263,99 @@ footer div {
     padding: 5px;
     border: 2px solid white; }
 
+#photo-title {
+  display: none;
+  color: white;
+  margin-left: 13px;
+  padding-top: 20px;
+  font-family: "Oswald", sans-serif; }
+
 /* Info Window */
 .gm-style-iw {
-  background: #061f2b;
-  width: 301px !important;
-  height: 180px !important;
-  top: 0 !important;
-  left: 0 !important;
-  border-radius: 2px 2px 0 0; }
+  width: 320px !important; }
+  .gm-style-iw div div {
+    overflow: hidden; }
 
-#iw-container {
-  padding: -20px;
-  margin: 0; }
-
-#iw-head {
-  width: 250px;
-  padding-top: 10px;
-  color: white; }
-  #iw-head h2 {
-    width: 100%;
-    margin-top: -1px;
-    text-align: left;
-    border-bottom: 1px solid white;
-    box-shadow: black 3px 2px 9px;
-    padding-bottom: 1px; }
-
-#iw-body {
-  display: -ms-flexbox;
-  display: flex;
-  width: 250px;
-  height: 170px;
-  background: #166b80;
-  text-align: left;
-  color: white; }
-  #iw-body div {
-    padding: 5px; }
-  #iw-body img {
-    max-width: 100%;
-    height: 100%; }
+#iw-text, #iw-head {
+  color: #061f2b; }
 
 #iw-text {
-  color: white;
-  width: 50%;
-  margin-top: 15px; }
+  padding-bottom: 4px;
+  margin-right: 10px;
+  margin-left: 10px; }
+
+#iw-body {
+  margin: -10px; }
 
 #iw-pic {
-  margin-top: 20px;
-  width: 50%;
-  height: 100px; }
+  max-width: 300px;
+  margin-right: auto;
+  margin-left: auto; }
+  #iw-pic img {
+    max-height: 170px;
+    max-width: 295px; }
 
 /* Break Points */
 @media screen and (max-width: 465px) {
+  #dropActivate span {
+    font-size: 13px; }
   #nav-list {
     margin-top: 5px; }
     #nav-list li {
-      width: 100%;
-      padding: 0 3px 8px 4px; } }
+      width: 80%;
+      padding: 0 3px 8px 4px;
+      font-size: 11px; }
+  .review-body {
+    font-size: 13px; }
+  .r-link {
+    font-size: 12px; } }
 
 @media screen and (min-width: 466px) {
+  #nav-list li {
+    width: 100%;
+    margin-left: -13px;
+    padding: 0 5px 10px 0px;
+    font-size: 12px; } }
+
+@media screen and (min-width: 710px) {
+  #map-container {
+    width: 69%;
+    margin-left: 31%; }
+  #map {
+    height: 370px; }
+  #info-container {
+    display: -ms-flexbox;
+    display: flex; }
+  #srch-container {
+    z-index: 100;
+    height: 774px;
+    margin-top: -371px;
+    width: 33%;
+    border-bottom: 5px solid #a1a2a2;
+    border-right: 3px solid #061f2b;
+    border-radius: 3px; }
+  #list-title {
+    margin-top: -25px; }
+    #list-title h2 {
+      font-size: 40px; }
   #nav-list {
-    margin-top: 50px; }
+    margin-top: 5px; }
     #nav-list li {
-      width: 33%;
-      padding: 0 5px 30px 7px; } }
+      font-size: 15px; }
+  #dropDown {
+    width: 375px; }
+  #dropDownList {
+    min-height: 210px;
+    width: 195px; }
+    #dropDownList span, #dropDownList i, #dropDownList a {
+      font-size: 19px; }
+  #filter-list {
+    height: 250px; }
+  #rv-container {
+    height: 398px;
+    width: 67%;
+    padding-left: 5px;
+    overflow-y: overlay;
+    overflow-x: hidden; }
+  #flickr img {
+    width: 33%; } }
