@@ -238,7 +238,7 @@ function PlacesViewModel() {
 				self.currentReview(review);
 				self.reviewUrl(url);
 				self.tripExpertUrl(tUrl)
-				self.tripExpertLink("Visit tripExpert for more reviews");
+				self.tripExpertLink("Visit Trip Expert for More Reviews");
 				self.reviewLink("Click Here for Full Review from " + source);
 			},
 			error: function() {
@@ -289,7 +289,8 @@ function PlacesViewModel() {
 
 	self.loadTripExpert = function(placeName, coords) {
 
-		var tripExpertKey = "ec94a7b46ad42d743651578cd86ac4cb"
+		// var tripExpertKey = "ec94a7b46ad42d743651578cd86ac4cb"
+		var tripExpertKey = tKey;
 		var country_id = 25;
 
 		var venueURL = "https://api.tripexpert.com/v1/venues?api_key=" + 
@@ -450,8 +451,8 @@ $(document).on("scroll", function() {
 
 // Flickr API
 
-var flickKey = '308f3dd16dc13ec9851d4e6a6cf7fbaa';
-var flickSecret = '5f37e6c3c6b59f51';
+// var flickKey = '308f3dd16dc13ec9851d4e6a6cf7fbaa';
+// var flickSecret = '5f37e6c3c6b59f51';
 
 /*var lat = 35.690788;
 var lon = 139.699600;
@@ -472,7 +473,8 @@ var methodInfoURL = 'https://api.flickr.com/services/rest/?method=' + methodInfo
 var methodPopular = 'flickr.places.getPopular'
 var methodInfoURL = 'https://api.flickr.com/services/rest/?method=' + methodPopular + 
 	'&api_key=' + flickKey + '&place_id=FRthiQZQU7uKHvmP&format=json&nojsoncallback=1'*/ 
-
+var flickKey = fKey;
+var flickSecret = fSecret;
 
 function loadFlick(data) {
 
@@ -520,12 +522,12 @@ function loadFlick(data) {
 				})
 			}
 			else {
-				console.log("Photos failed to load");
+				self.flickrDIV.text("Sorry, there was an error getting your photos :(");
 			}
 		},
 		error: function(e) {
 			console.log(e);
-			flickrDIV.text("Sorry, there was an error getting your photos :(")
+			flickrDIV.text("Sorry, there was an error getting your photos :(");
 			}
 		})
 	}
