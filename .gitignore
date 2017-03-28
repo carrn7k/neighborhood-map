@@ -1,2 +1,4 @@
 #####Config Settings######
 config_settings.js
+node_modules
+yelp_secrets.json

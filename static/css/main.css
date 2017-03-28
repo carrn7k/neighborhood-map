@@ -170,6 +170,8 @@ footer div {
   border-top-left-radius: 9px;
   color: white;
   font-family: "Merriweather", serif; }
+  #dropActivate span {
+    font-size: 12px; }
 
 #dropDownList {
   display: none;
@@ -256,6 +258,8 @@ footer div {
 
 /* Flickr Images */
 #flickr {
+  color: white;
+  font-size: 16px;
   margin-right: 5px;
   margin-left: 5px; }
   #flickr img {
@@ -319,8 +323,8 @@ footer div {
 
 @media screen and (min-width: 710px) {
   #map-container {
-    width: 69%;
-    margin-left: 31%; }
+    width: 66%;
+    margin-left: 34%; }
   #map {
     height: 370px; }
   #info-container {
@@ -330,25 +334,31 @@ footer div {
     z-index: 100;
     height: 774px;
     margin-top: -371px;
-    width: 33%;
+    width: 35%;
     border-bottom: 5px solid #a1a2a2;
     border-right: 3px solid #061f2b;
     border-radius: 3px; }
   #list-title {
-    margin-top: -25px; }
+    margin-top: 0px; }
     #list-title h2 {
-      font-size: 40px; }
+      font-size: 35px; }
   #nav-list {
-    margin-top: 5px; }
+    margin-top: 25px;
+    margin-left: -10px; }
     #nav-list li {
-      font-size: 13px; }
+      font-size: 12px; }
+  #list-container {
+    max-height: 315px; }
   #dropDown {
-    width: 375px; }
+    width: 259px;
+    margin-left: -5px; }
   #dropDownList {
     min-height: 281px;
-    width: 180px; }
+    width: 135px; }
     #dropDownList span, #dropDownList i, #dropDownList a {
-      font-size: 19px; }
+      font-size: 17px; }
+    #dropDownList a {
+      padding: 1px 0px 7px 6px; }
   #filter-list {
     height: 290px; }
   #rv-container {
@@ -362,3 +372,22 @@ footer div {
     font-size: 16px; }
     #flickr img {
       width: 33%; } }
+
+@media screen and (min-width: 910px) {
+  #list-title h2 {
+    font-size: 40px; }
+  #filter-list {
+    heigth: 320px; }
+  #dropDown {
+    width: 275px;
+    margin-left: -2px; }
+  #dropActivate span {
+    font-size: 14px; }
+  #dropDownList {
+    width: 145px; }
+  span, i, a {
+    font-size: 19px; }
+  #nav-list {
+    margin-left: 5px; }
+    #nav-list li {
+      font-size: 14px; } }

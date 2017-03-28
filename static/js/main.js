@@ -89,6 +89,8 @@ var Place = function(place) {
 	this.coordinates = place.coordinates;
 }
 
+
+// View model to handle the list and filter for places
 function PlacesViewModel() {
 
 	var self = this;
@@ -98,9 +100,9 @@ function PlacesViewModel() {
 	self.currentArray = ko.observable();
 
 	// Review Info
-	self.currentReview = ko.observable('Select a Place to See Reviews!');
-	self.reviewUrl = ko.observable();
-	self.reviewLink = ko.observable();
+	self.currentExpertReview = ko.observable('Select a Place to See Reviews!');
+	self.expertUrl = ko.observable();
+	self.expertLink = ko.observable();
 	self.tripExpertUrl = ko.observable();
 	self.tripExpertLink = ko.observable();
 	self.currentYelp = ko.observableArray();
@@ -144,8 +146,8 @@ function PlacesViewModel() {
 						return place.type.indexOf(type) !== -1
 				})
 			});
-			// Hide markers that don't match the type and hide those
-			// that don't.
+			// Hide markers that don't match the type and display those
+			// that do.
 			markers.forEach(function(marker) {
 				if (marker.type.indexOf(type) == -1) {
 					marker.setVisible(false);
@@ -194,25 +196,28 @@ function PlacesViewModel() {
 		currentInfoWindow.open(map, focusMarker[0]);
 
 		// When a list item is clicked, it also triggers calls to 
-		// Flickr and Trip Expert API's 
-		self.currentYelp([]);
+		// Flickr and Trip Expert API's. The call to loadReviews
+		// intitializes these calls.
 		self.loadReviews(data.name, data.coordinates);
 
+		// Flickr photos are also triggered upon a list click event
 		self.flickr.html('');
 		loadFlick(data);
-		// self.displayPhotos(data);
 
 	}
 
-	// The current array is initialized to the ko observable array
-	// named placeList()
+	// The current array, which is a ko observable is set to contain
+	// an observable array which will contain all the places in the 
+	// data model
 	self.currentArray(self.placeList());
-
-	// Populate the initial list
 	placeData.places.forEach(function(place) {
 		self.placeList.push(new Place(place));
 	})
 
+	// The loadVenue function takes a venue and api key and makes an 
+	// ajax call to the Trip Exper API to get data on that venue. If 
+	// the call fails or returns no data an error message is displayed
+	// instead
 	self.loadVenue = function(venues, key) {
 
 		var vURL = "https://api.tripexpert.com/v1/venues/" + venues[i].id +
@@ -224,10 +229,9 @@ function PlacesViewModel() {
 			cache: false,
 			success: function(venueData) {
 
-				console.log(venueData);
-
 				self.tripExpertLogo.css("display", "block");
 
+				// Venue data
 				var review = venueData.response.venues[0].reviews[0].extract;
 				var tripPath = venueData.response.venues[0].path;
 				var url = venueData.response.venues[0].reviews[0].source_url;
@@ -235,27 +239,27 @@ function PlacesViewModel() {
 
 				var tUrl = "https://www.tripexpert.com/" + tripPath;
 
-				self.currentReview(review);
-				self.reviewUrl(url);
+				// Variables are updated to display the new venue
+				self.currentExpertReview(review);
+				self.expertUrl(url);
 				self.tripExpertUrl(tUrl)
 				self.tripExpertLink("Visit Trip Expert for More Reviews");
-				self.reviewLink("Click Here for Full Review from " + source);
+				self.expertLink("Click Here for Full Review from " + source);
 			},
-			error: function() {
-				console.log("Venue retrieval error");
-				self.currentReview("Sorry, something went wrong when fetching your reviews.");
+			error: function(e) {
+				console.log(e);
+				self.currentExpertReview("Sorry, something went wrong when fetching your reviews.");
 			}
 		}); 
 	}
 
+	// The loadYelp function makes a call to a Python server which makes a
+	// call to the Yelp Fusion API and returns the data
 	self.loadYelp = function(placeName, coords) {
 
-		var placeData = {'placeName': placeName, 'coords': coords};
-		// var placeData = [placeName, coords['lat'], coords['lng']];	
+		var placeData = {'placeName': placeName, 'coords': coords};	
 		var placeDataJson = JSON.stringify(placeData);
 
-
-		self.yelpLink(' ');
 
 		$.ajax({
 			url: '/yelpReviews',
@@ -265,9 +269,10 @@ function PlacesViewModel() {
 			dataType: 'json',
 			success: function(yelpData) {
 
-				if (yelpData) {
+				self.currentYelp([]);
+				self.yelpLink(' ');
 
-					console.log(yelpData);
+				if (yelpData) {
 
 					self.yelpLogo.css("display", "block");
 
@@ -277,20 +282,34 @@ function PlacesViewModel() {
 
 					self.yelpUrl(yelpData['url']);
 					self.yelpLink("Visit Yelp for More Info on " + placeName);
+
 				} else {
-					self.currentYelp("Sorry, there were no yelp reviews for this place");
+					self.currentYelp(
+						{
+							"text": "Sorry, there were no yelp reviews for this place",
+						 	"url": "#"
+						});
 				}
 			},
 			error: function(e) {
-				self.currentYelp("Sorry, there was an error fetching your reviews :(")
+				console.log(e);
+				self.currentYelp(
+				{
+					"text": "Sorry, there were no yelp reviews for this place",
+					"url": "#"
+				});
 			}
 		})
 	}
 
+	// The loadTripExpert begins the retrieval of Trip Expert reviews by 
+	// searching through places near the location and, in the event of 
+	// a match, calling the loadVenue function to get information on that 
+	// specific venue
 	self.loadTripExpert = function(placeName, coords) {
 
-		// var tripExpertKey = "ec94a7b46ad42d743651578cd86ac4cb"
 		var tripExpertKey = tKey;
+		// Japan's Country ID
 		var country_id = 25;
 
 		var venueURL = "https://api.tripexpert.com/v1/venues?api_key=" + 
@@ -318,8 +337,6 @@ function PlacesViewModel() {
 				var match = false;
 				for (i = 0; i < venues.length; i++) {
 
-					console.log(venues[i]['name']);
-
 					// Use the loadVenue function to get the tripExpert info and update
 					// the DOM.
 					if (placeName.length >= venues[i]['name'].length) {
@@ -346,18 +363,20 @@ function PlacesViewModel() {
 					}
 				}
 				if (match == false) {
-					self.currentReview("Sorry, there are no reviews from Trip Expert for this place yet, but please enjoy the photos!");
-					self.reviewUrl('');
-					self.reviewLink('');
+					self.currentExpertReview("Sorry, there are no reviews from Trip Expert for this place yet, but please enjoy the photos!");
+					self.expertUrl('');
+					self.expertLink('');
+					self.tripExpertLink('');
 				}
 			},
-			error: function() {
-				self.currentReview("Sorry, something went wrong when searching for this venue...");
+			error: function(e) {
+				console.log(e);
+				self.currentExpertReview("Sorry, something went wrong when searching for this venue...");
 			}
 		})
 	}
 
-	// This function calls the Yelp and TripExpert API's 
+	// Function to trigger the calls to Yelp and Trip Expert 
 	self.loadReviews = function(placeName, coords) {
 
 		// Display the headings to the reviews
@@ -365,7 +384,6 @@ function PlacesViewModel() {
 		self.photoTitle.css("display", "block");
 
 		// Make sure that the previous reviews have been cleared
-		self.currentYelp([]);
 		self.loadYelp(placeName, coords);
 
 		self.loadTripExpert(placeName, coords);
@@ -422,8 +440,8 @@ var MarkersViewModel = {
 ko.applyBindings(new PlacesViewModel());
 MarkersViewModel.init();
 
-// SCROLL TEST
 
+// SCROLL TEST
 var mainBanner = $("#main-banner");
 var mapContainer = $("#map-container");
 var parallax = $("#plx");
@@ -445,34 +463,7 @@ $(document).on("scroll", function() {
 
 })
 
-
-// API'S 
-
-
 // Flickr API
-
-// var flickKey = '308f3dd16dc13ec9851d4e6a6cf7fbaa';
-// var flickSecret = '5f37e6c3c6b59f51';
-
-/*var lat = 35.690788;
-var lon = 139.699600;
-var method = 'flickr.photos.search'
-var flickURL = 'https://api.flickr.com/services/rest/?method=' + method + 
-	'&lat=' + lat + '&lon=' + lon + '&api_key=' +
-	flickKey + '&per_page=10&format=json&nojsoncallback=1&sort=relevance' +
-	'&radius=3&tags=food,travel,shopping';
-
-var methodFind = 'flickr.places.find'
-var placeIDURL = 'https://api.flickr.com/services/rest/?method=' + methodFind + 
-	'&api_key=' + flickKey + '&query=Shinjuku%20Station&format=json&nojsoncallback=1';
-
-var methodInfo = 'flickr.places.getInfo'
-var methodInfoURL = 'https://api.flickr.com/services/rest/?method=' + methodInfo + 
-	'&api_key=' + flickKey + '&place_id=FRthiQZQU7uKHvmP&format=json&nojsoncallback=1';
-
-var methodPopular = 'flickr.places.getPopular'
-var methodInfoURL = 'https://api.flickr.com/services/rest/?method=' + methodPopular + 
-	'&api_key=' + flickKey + '&place_id=FRthiQZQU7uKHvmP&format=json&nojsoncallback=1'*/ 
 var flickKey = fKey;
 var flickSecret = fSecret;
 
@@ -487,7 +478,7 @@ function loadFlick(data) {
 
 	var flickURL = 'https://api.flickr.com/services/rest/?method=' + method + 
 	'&lat=' + lat + '&lon=' + lon + '&api_key=' +
-	flickKey + '&per_page=8&format=json&nojsoncallback=1&sort=interestingness-desc' +
+	flickKey + '&per_page=8&format=json&nojsoncallback=1&sort=relevance' +
 	'&radius=1&tags=' + tags;
 
 	$.ajax( {
@@ -497,7 +488,6 @@ function loadFlick(data) {
 
 			if (data['stat'] == 'ok') {
 
-				// update background photo
 				var backgroundPhoto = data['photos']['photo'][0];
 				var farmID = backgroundPhoto['farm'];
 				var serverID = backgroundPhoto['server'];
@@ -507,9 +497,11 @@ function loadFlick(data) {
 				var url = "https://farm" + farmID + ".staticflickr.com/" + 
 						serverID + "/" + id + "_" + secret + ".jpg";
 
+				// Display the first, and most relevant, photo 
+				// in the filter container
 				$("#dropDown").css("background-image", "url(" + url + ")");
 
-				// display photos
+				// Populate the div with the images
 				var photos = data['photos']['photo'];
 				photos.forEach(function(photo) { 
 					var farmID = photo['farm'];
