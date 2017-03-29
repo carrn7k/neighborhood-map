@@ -198,9 +198,9 @@ has been configured, simply execute the functions in your terminal.
 For example, to convert your SASS to CSS, type the following 
 command
 
-**gulp styles
+**gulp styles**
 
-##Production Code
+## Production Code
 
 To get the app ready for production, js and css files are concatenated
 and minified using the following commands:
