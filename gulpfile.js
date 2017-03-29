@@ -1,8 +1,6 @@
  
  var gulp = require('gulp');
 
- var browserSync = require('browser-sync').create();
- var watch = require('gulp-watch');
  var sass = require('gulp-sass');
  var autoprefixer = require('gulp-autoprefixer');
  var concat = require('gulp-concat');

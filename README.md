@@ -149,10 +149,65 @@ To install them, in your working directory type the following commands:
 * npm install gulp-uglify --save-dev
 * npm install gulp-clean-css --save-dev
 
-For a reference of the gulp functions being used in this app, please refer
-to the gulp.js file. Depending on the structure of your directory, you may 
-need to reconfigure the folder destinations and sources. Once the Gulp
-plugins have been installs, simply type commands in the Node terminal to 
-execute them.
- 
+After the plugins have been installed, create a javascript file named gulp.js
+and add the following variables:
+
+```javascript
+var gulp = require('gulp')
+
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var cleanCSS = require('gulp-clean-css');
+```
+
+After creating these variables, write the functions to perform the
+actual tasks. Each of the tasks needs a source, which is the place 
+you are storing your source files, and a destination, which is 
+where you want the altered files to be store. Depending on the structure
+of your directory, you may need to reconfigure the folder destinations 
+and sources. Refer to the code below:
+
+```javascript
+ gulp.task('styles', function() {
+ 	gulp.src('static/sass/**/*.scss')
+ 	.pipe(sass().on('error', sass.logError))
+ 	.pipe(autoprefixer({
+ 		browsers: ['last 2 versions']
+ 	}))
+ 	.pipe(gulp.dest('static/css'))
+ })
+
+ gulp.task('scripts-dist', function() {
+	gulp.src('static/js/*.js')
+		.pipe(concat('all.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('dist/static/js'));
+ });
+
+ gulp.task('clean-css', function() {
+ 	gulp.src('static/css/*.css')
+ 		.pipe(cleanCSS({compatibility: 'ie8'}))
+ 		.pipe(gulp.dest('dist/static/css'));
+ })
+```
+
+Once the Gulp plugins have been installed and the gulp.js file
+has been configured, simply execute the functions in your terminal.
+For example, to convert your SASS to CSS, type the following 
+command
+
+**gulp styles
+
+##Production Code
+
+To get the app ready for production, js and css files are concatenated
+and minified using the following commands:
+
+* gulp scripts-dist
+* gup clean-css
+
+
+
 	
