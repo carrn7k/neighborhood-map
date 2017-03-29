@@ -26,8 +26,7 @@ the Python backend, which is necessary for the Yelp Fusion API.
 If don't wish to use the Yelp API, vagrant, Python and VirtualBox
 are not necessary, as the html can simply be opened in a web browser.
 
-## If you wish to us Vagrant, Python and VirtualBox, refer to the
-## instructions below:
+## If you wish to us Vagrant, Python and VirtualBox, refer to the instructions below:
 
 If you don't have vagrant and VirtualBox installed on yourmachine,
 please install them and set up your virtualmachine using the .vagrant
@@ -77,9 +76,9 @@ secret and key, Trip Expert requires an API key, and Yelp requires
 a client id and secret. Please refer to the following links for 
 instructions on obtaining the secrets and keys:
 
-**https://www.flickr.com/services/developer/api/
-**https://www.tripexpert.com/api
-**https://www.yelp.com/developers/documentation/v3/get_started
+* https://www.flickr.com/services/developer/api/
+* https://www.tripexpert.com/api
+* https://www.yelp.com/developers/documentation/v3/get_started
 
 Once you have obtained the keys and secret, you'll need to update
 the main.js file. You can either update the main.js file directly,
@@ -136,11 +135,11 @@ this link https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md.
 
 This app utilizes the following Gulp plugins: 
 
-*gulp-sass
-*gulp-autoprefixer
-*gulp-concat
-*gulp-uglify
-*gulp-clean-css
+* gulp-sass
+* gulp-autoprefixer
+* gulp-concat
+* gulp-uglify
+* gulp-clean-css
 
 To install them, in your working directory type the following commands:
 
