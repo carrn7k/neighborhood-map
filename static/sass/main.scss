@@ -261,6 +261,7 @@ footer {
     margin-right: 10px;
 	color: white;
 	border-bottom: 3px solid white;
+	text-shadow: #101010 4px 4px 9px;
 	font-family: $heading-font;
 }
 #yelp-reviews {
@@ -324,7 +325,7 @@ footer {
 	width: 320px !important;
 	div {
 		div {
-			overflow: hidden;
+			overflow: hidden !important;
 		}
 	}
 }
@@ -341,11 +342,12 @@ footer {
 }
 #iw-pic {
 	max-width: 300px;
+	height: 200px;;
 	margin-right: auto;
 	margin-left: auto;
 	img {
-		max-height: 170px;
-		max-width: 295px;
+		max-height: 75%;
+		max-width: 75%;
 	}
 }
 
@@ -438,9 +440,12 @@ footer {
 	#filter-list {
 		height: 290px;
 	}
+	#review-title {
+		font-size: 32px;
+	}
 	#rv-container {
 		height: 398px;
-		width: 67%;
+		width: 64%;
 		padding-left: 5px;
 		overflow-y: overlay;
 		overflow-x: hidden;

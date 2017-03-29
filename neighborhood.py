@@ -18,7 +18,7 @@ def test():
     client_id = CLIENT_DATA['yelp_data']['client_id']
     client_secret = CLIENT_DATA['yelp_data']['client_secret']
 
-    # retrieve access_token
+    # http request to retrieve access_token
     url = 'https://api.yelp.com/oauth2/token?grant_type=client_credentials&client_id=%s&client_secret=%s' % (
         client_id, client_secret)
     h = httplib2.Http()
@@ -30,9 +30,11 @@ def test():
     businesses = {}
     if request.method == 'POST':
 
+        # Load data from the javascript file
         place_data = json.loads(request.data)
         
-        # business search request
+        # http request to search for places using a place's name
+        # and its lat and lon coordinates
         url = 'https://api.yelp.com/v3/businesses/search'
         params = {
                 'term': place_data['placeName'],
@@ -45,12 +47,13 @@ def test():
         r = requests.get(url, params=params, headers=headers)
         business_data = json.loads(r.content)
 
+        # Loop through the businesses returned from the previous
+        # call and search for a match
         count = 1
         reg_ex = None
         search_terms = None
         match = None
-
-
+        
         yelp_data = {}
         for b in business_data['businesses']:
             
@@ -70,7 +73,9 @@ def test():
                     }
                 break
             count+=1
-            
+
+        # If a place matches, get the reviews from that match and convert them
+        # to Json to send back to the javascript file
         if match:
             r_url = "https://api.yelp.com/v3/businesses/%s/reviews" % yelp_data['id']
             review_request = requests.get(r_url, headers=headers)
@@ -84,7 +89,7 @@ def test():
         return yelp_json
             
     elif request.method == 'GET':
-        return render_template('index.html', DATA=data)
+        return render_template('index.html')
     
 
 if __name__ == '__main__':

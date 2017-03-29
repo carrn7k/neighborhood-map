@@ -56,15 +56,15 @@ if __name__ == '__main__':
 ```
 	
 After all required software has been installed, open a 
-terminal and navigate to the project directory /catalog.
+terminal and navigate to the project directory /NeighborhoodMap.
 In your terminal, type the following commands:
 
 * vagrant up
 * vagrant ssh
 
 You should now be logged into the virtual machince. Navigate
-to /vagrant/catalog to access the application files and then
-type python application.py to run the app. After typing this 
+to /vagrant to access the application files and then
+type python neighborhood.py to run the app. After typing this 
 command, your machine should be hosting the app on localhost:5000
 (or whatever port you've set up). Open your favorite browser 
 and navigate to your local port to view the app. 
@@ -73,11 +73,13 @@ and navigate to your local port to view the app.
 
 This app uses Flickr, Yelp and Trip Expert to provide additional
 information and media about the places. Flickr requires an API 
-secret and key, and Trip Expert requires an API key. Please refer 
-to the following links for instructions:
+secret and key, Trip Expert requires an API key, and Yelp requires
+a client id and secret. Please refer to the following links for 
+instructions on obtaining the secrets and keys:
 
-**flickr link
-**trip expert link
+**https://www.flickr.com/services/developer/api/
+**https://www.tripexpert.com/api
+**https://www.yelp.com/developers/documentation/v3/get_started
 
 Once you have obtained the keys and secret, you'll need to update
 the main.js file. You can either update the main.js file directly,
@@ -95,6 +97,13 @@ and flickSecret variables:
 var flickKey = YOUR_API_KEY
 var flickSecret = YOUR_SECRET
 ```
+To update the Yelp credentials, open the neighborhood.py file and locate 
+the client_id and client_secret variables. 
+
+```python
+client_id = YOUR_CLIENT_ID
+client_secret = YOUR_CLIENT_SECRET
+```
 
 If you choose to create a seperate file, then name it config_settings.js
 and add the following variables: 
@@ -103,6 +112,16 @@ and add the following variables:
 var fKey = YOUR_FLICKR_API_KEY
 var fSecret = YOUR_FLICKR_API_SECRET
 var tKey = YOUR_TRIPEXPERT_API_KEY
+```
+Additionally, you can create a seperate file to store your Yelp variables. 
+Create a file named yelp_secrets.json--or whatever you wish to call it, and
+store the variables in a json object. In the neighborhood.py file, load the 
+variables from the file like so:
+
+```python
+CLIENT_DATA = json.loads(open('yelp_secrets.json', 'r').read())
+client_id = CLIENT_DATA['yelp_data']['client_id']
+client_secret = CLIENT_DATA['yelp_data']['client_secret']
 ```
 
 ## Building the App
@@ -115,12 +134,13 @@ After you have node installed, open the Node.js command prompt and navigate
 to your working directory. Once in the directory, follow the instructions at 
 this link https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md. 
 
-This app utilizes the following Gulp functions: 
+This app utilizes the following Gulp plugins: 
 
 *gulp-sass
 *gulp-autoprefixer
 *gulp-concat
 *gulp-uglify
+*gulp-clean-css
 
 To install them, in your working directory type the following commands:
 
@@ -128,9 +148,12 @@ npm install gulp-sass --save-dev
 npm install gulp-autoprefixer --save-dev
 npm install gulp-concat --save-dev
 npm install gulp-uglify --save-dev
+npm install gulp-clean-css --save-dev
 
 For a reference of the gulp functions being used in this app, please refer
-to the gulp.js filesDepending on the structure of your directory, you may 
-to reconfigure the folder destinations and sources.
+to the gulp.js file. Depending on the structure of your directory, you may 
+need to reconfigure the folder destinations and sources. Once the Gulp
+plugins have been installs, simply type commands in the Node terminal to 
+execute them.
  
 	

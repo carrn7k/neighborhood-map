@@ -4,12 +4,10 @@
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <!--DEVELOPMENT CACHE CONTROL-->
-	    <meta http-equiv="Cache-control" content="no-cache">
-	    <meta http-equiv="Expires" content="-1">
-	  	<!---->
-	    <link rel="stylesheet" href="../static/css/main.css">
 
+	    <link rel="stylesheet" href="../static/css/main.css">
+		<link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.min.css">
+	    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -17,8 +15,7 @@
 	    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 	    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 	    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
-	    <link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.min.css">
-	    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	    
 
 
 	</head>
@@ -48,15 +45,12 @@
 				<div class="container" id="info-container">
 
 					<div class="container" id=srch-container>
+
 						<div class="row" id="list-title" class="centered">
 							<h2>Explore Places!</h2>
 						</div>
-						<!--<div>
-							<button data-bind="click: function(type) { filterArray(null, placeList())}">Show All</button>
-						</div>-->
 
 						<div class="row flex" id="filter-list">
-							<!-- Beta Search -->
 							<div class="col-3" id="dropDown">
 								<div id="dropActivate"><span>Filter by Category&nbsp;&nbsp;<i class="fa fa-filter" aria-hidden="true"></i></span></div>
 								<div id="dropDownList">
@@ -114,10 +108,6 @@
 
 					</div>
 
-				</div>
-
-				<div class="row" id="yelp">
-					<span data-token='{{ DATA }}' id="yelp-data"></span>
 				</div>
 
 			</main>

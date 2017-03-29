@@ -225,6 +225,7 @@ footer div {
   margin-right: 10px;
   color: white;
   border-bottom: 3px solid white;
+  text-shadow: #101010 4px 4px 9px;
   font-family: "Oswald", sans-serif; }
 
 #yelp-reviews a:hover {
@@ -278,7 +279,7 @@ footer div {
 .gm-style-iw {
   width: 320px !important; }
   .gm-style-iw div div {
-    overflow: hidden; }
+    overflow: hidden !important; }
 
 #iw-text, #iw-head {
   color: #061f2b; }
@@ -293,11 +294,12 @@ footer div {
 
 #iw-pic {
   max-width: 300px;
+  height: 200px;
   margin-right: auto;
   margin-left: auto; }
   #iw-pic img {
-    max-height: 170px;
-    max-width: 295px; }
+    max-height: 75%;
+    max-width: 75%; }
 
 /* Break Points */
 @media screen and (max-width: 465px) {
@@ -361,9 +363,11 @@ footer div {
       padding: 1px 0px 7px 6px; }
   #filter-list {
     height: 290px; }
+  #review-title {
+    font-size: 32px; }
   #rv-container {
     height: 398px;
-    width: 67%;
+    width: 64%;
     padding-left: 5px;
     overflow-y: overlay;
     overflow-x: hidden; }
