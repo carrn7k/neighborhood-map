@@ -143,11 +143,11 @@ This app utilizes the following Gulp plugins:
 
 To install them, in your working directory type the following commands:
 
-npm install gulp-sass --save-dev
-npm install gulp-autoprefixer --save-dev
-npm install gulp-concat --save-dev
-npm install gulp-uglify --save-dev
-npm install gulp-clean-css --save-dev
+* npm install gulp-sass --save-dev
+* npm install gulp-autoprefixer --save-dev
+* npm install gulp-concat --save-dev
+* npm install gulp-uglify --save-dev
+* npm install gulp-clean-css --save-dev
 
 For a reference of the gulp functions being used in this app, please refer
 to the gulp.js file. Depending on the structure of your directory, you may 
