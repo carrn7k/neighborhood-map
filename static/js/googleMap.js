@@ -1,4 +1,6 @@
-// Google Maps 
+// Google Maps
+
+var self = this;
 
 var placeCoords = [],
 	markers = [];
@@ -23,12 +25,12 @@ window.initMap = function() {
 			{ weight: 9 }
 		]
 		}
-	]
+	];
 
 	map = new google.maps.Map(document.getElementById('map'), {
   		center: shinjukuCords,
   		styles: styles,
-  		zoom: 7
+  		zoom: 14
 	});
 
 	// Create an empty infoWindow on page load
@@ -37,7 +39,7 @@ window.initMap = function() {
 
 	mapHandler.buildCoords();
 
-}
+};
 
 
 // Handles Google Map and Markers
@@ -45,49 +47,38 @@ var mapHandler = {
 
 	// Construct Markers and a corresponding info window
 	buildCoords: function() {
-		var self = this;
 
 		// Create a marker for each item in the placeCoords
 		// array
 		placeCoords.forEach(function(place) {
-		var marker = new google.maps.Marker({
-			position: place[0],
-			placeID: place[1],
-			info: place[2],
-			type: place[3],
-			animation: google.maps.Animation.DROP,
-			map: map,
-		})
 
-		// Build the corresponding info window
-		var infowindow = new google.maps.InfoWindow({
-	      content: place[2]
-	    });
+			var marker = new google.maps.Marker({
+				position: place[0],
+				placeID: place[1],
+				type: place[2],
+				animation: google.maps.Animation.DROP,
+				map: map,
+		});
 
 		// Add an event to open/close an info window 
 		// when clicked
 		marker.addListener('click', function() {
-			// Close any open info window upon click
-			self.closeAllWindows();
-			infowindow.open(map, marker);
+
+			// Trigger an Ajax call, defined in the openMarker function,
+			// to get a yelp review and photo to display in the infoWindow
+			self.vm.openMarker(marker);
+
 		});
 
 		// Set the map boundary to include all markers
 		bounds.extend(marker.position);
-
-		infoWindows.push(infowindow);
 		markers.push(marker);
-		})
+		});
 
-		map.fitBounds(bounds);
-
+		google.maps.event.addDomListener(window, 'resize', function() {
+  			map.fitBounds(bounds); 
+		});
 	},
-	
-	closeAllWindows: function() {
-		for (i = 0; i < infoWindows.length; i++) 
-			infoWindows[i].close();
-		if (currentInfoWindow) 
-			currentInfoWindow.close()
-	}
-}
+};
+
 

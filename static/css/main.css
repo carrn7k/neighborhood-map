@@ -95,6 +95,16 @@ footer div {
 #map {
   box-shadow: black 2px 4px 14px 2px; }
 
+.map-error {
+  height: 300px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  font-size: 25px;
+  color: white;
+  text-align: center; }
+
 .map-fixed {
   position: fixed;
   top: 0; }
@@ -239,12 +249,10 @@ footer div {
   color: grey; }
 
 #trip-expert-logo {
-  display: none;
   width: 120px;
   margin-top: 20px; }
 
 #yelp-logo {
-  display: none;
   width: 120px; }
 
 .r-link {
@@ -277,29 +285,40 @@ footer div {
 
 /* Info Window */
 .gm-style-iw {
-  width: 320px !important; }
+  height: 150px !important;
+  width: 250px !important; }
   .gm-style-iw div div {
-    overflow: hidden !important; }
+    overflow: auto !important;
+    padding: 3px; }
 
-#iw-text, #iw-head {
+#iw-text {
   color: #061f2b; }
 
 #iw-text {
   padding-bottom: 4px;
   margin-right: 10px;
-  margin-left: 10px; }
+  margin-left: 10px;
+  text-align: left;
+  font-size: 12px; }
+  #iw-text p {
+    margin-top: -11px; }
 
 #iw-body {
   margin: -10px; }
 
+#iw-logo {
+  height: 50px;
+  width: 90px;
+  margin-left: -13px; }
+
 #iw-pic {
-  max-width: 300px;
-  height: 200px;
   margin-right: auto;
   margin-left: auto; }
   #iw-pic img {
-    max-height: 75%;
-    max-width: 75%; }
+    margin-top: 30px;
+    height: 110px;
+    width: 120px;
+    border: 4px solid #061f2b; }
 
 /* Break Points */
 @media screen and (max-width: 465px) {

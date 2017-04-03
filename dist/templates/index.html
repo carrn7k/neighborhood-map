@@ -9,8 +9,6 @@
 		<link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.min.css">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
 	    <!-- FONTS -->
 	    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 	    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
@@ -44,7 +42,7 @@
 
 				<div class="container" id="info-container">
 
-					<div class="container" id=srch-container>
+					<div class="container" id="srch-container">
 
 						<div class="row" id="list-title" class="centered">
 							<h2>Explore Places!</h2>
@@ -79,7 +77,7 @@
 						<div class="container-padded" id="inner-rv">
 							<!-- Yelp Reviews -->
 							<div class="row">
-								<a href="https://www.yelp.com"><img src="../static/img/Yelp_trademark_RGB_outline.png" class="review-header" id="yelp-logo" /></a>
+								<a href="https://www.yelp.com"><img data-bind="attr: { src: yelpLogo }" class="review-header" id="yelp-logo" /></a>
 								<div id="yelp-reviews" data-bind="foreach: currentYelp">
 									<a data-bind="attr: { href: url }"><p class="review" id="review-body" data-bind="text: text"></p></a>
 								</div>
@@ -89,7 +87,7 @@
 							<!-- Trip Expert Reviews -->
 							<div class="row">
 								<div class="row">
-									<a href="https://www.tripexpert.com/"><img class="review-header" src="../static/img/basic-logo.png" id="trip-expert-logo" /></a>
+									<a href="https://www.tripexpert.com/"><img class="review-header" data-bind="attr: { src: tripExpertLogo }" id="trip-expert-logo" /></a>
 								</div>
 								<p class="review" id="review-body" data-bind="text: currentExpertReview"></p>
 								<a data-bind="attr: { href: expertUrl }, text: expertLink" class="r-link" id="review-link"></a>
@@ -103,7 +101,8 @@
 							<h3>Check Out Some Photos from Flickr</h3>
 						</div>
 
-						<div class="container-padded flex-wrap" id="flickr">
+						<div data-bind="style: { visibility: showFlick() < 5 ? 'hidden' : 'visible' }, foreach: flickPhotos" class="container-padded flex-wrap" id="flickr">
+							<img data-bind="attr: { src: photo }" height="200" width="250" />
 						</div>
 
 					</div>
@@ -114,9 +113,9 @@
 		</div>
 	</body>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="../static/js/lib/knockout-3.4.1.js"></script>
 	<script src="../static/js/all.js"></script>
-
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT8Gs4FJ9XvQj98hImHnOF2Zy1y9ADCcA&callback=initMap" onerror="googleError()"></script>
 
 </html>
